@@ -28,6 +28,10 @@ WORKDIR /home/appuser/app
 
 COPY --from=builder --chown=appuser:appuser /build .
 
+# Expose a TRADINGAGENTS_DATA_DIR env var so the app can find the
+# persistent data directory without hardcoding the path in configs.
+ENV TRADINGAGENTS_DATA_DIR=/home/appuser/.tradingagents
+
 # Default to showing help if no subcommand is provided, which is friendlier
 # than the default error message when running the container without arguments.
 ENTRYPOINT ["tradingagents"]
