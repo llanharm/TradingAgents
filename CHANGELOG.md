@@ -12,6 +12,8 @@ Breaking changes within the 0.x line are called out explicitly.
 
 - Forked for personal learning/experimentation. Primary focus: testing DeepSeek
   and Qwen providers with my own portfolios. Not intended for production use.
+- Currently experimenting with `memory_log_max_entries = 200` as a reasonable
+  cap for my single-ticker test runs (default feels unbounded for local use).
 
 ## [0.2.4] — 2026-04-25
 
@@ -54,8 +56,4 @@ Breaking changes within the 0.x line are called out explicitly.
   leaked the OpenAI URL into non-OpenAI clients (e.g. Gemini), producing
   malformed request URLs for Python users who switched providers without
   overriding `backend_url`. The CLI flow is unaffected.
-- All file I/O passes explicit `encoding="utf-8"` so Windows users no longer
-  hit `UnicodeEncodeError` with the cp1252 default. (#543, #550, #576)
-- Cache and log directories moved to `~/.tradingagents/` to resolve Docker
-  permission issues. (#519)
-- `
+- All file I/O passes explicit `encoding="utf-8"` so Windo
