@@ -96,7 +96,8 @@ ignore_missing_imports = true
 testpaths = ["tests"]
 asyncio_mode = "auto"
 # Removed --cov-report=xml locally since I don't use CI coverage uploads
-addopts = "--cov=tradingagents --cov-report=term-missing"
+# Using -p no:warnings to keep test output clean during local development
+addopts = "--cov=tradingagents --cov-report=term-missing -p no:warnings"
 
 [tool.coverage.run]
 source = ["tradingagents"]
