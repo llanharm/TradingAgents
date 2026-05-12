@@ -18,6 +18,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
+# Create a dedicated user and ensure the data directory exists for
+# storing API keys and cached results between container runs.
+# Mount a volume at /home/appuser/.tradingagents to persist data.
 RUN useradd --create-home appuser \
  && install -d -m 0755 -o appuser -g appuser /home/appuser/.tradingagents
 USER appuser
