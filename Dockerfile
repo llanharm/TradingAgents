@@ -28,4 +28,7 @@ WORKDIR /home/appuser/app
 
 COPY --from=builder --chown=appuser:appuser /build .
 
+# Default to showing help if no subcommand is provided, which is friendlier
+# than the default error message when running the container without arguments.
 ENTRYPOINT ["tradingagents"]
+CMD ["--help"]
