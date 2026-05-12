@@ -1,23 +1,22 @@
-import warnings
+"""
+TradingAgents - A multi-agent framework for AI-driven trading analysis.
 
-# langchain-core 1.3.3 calls surface_langchain_deprecation_warnings() in
-# its own __init__, which prepends default-action filters for its
-# subclassed warning categories. To suppress a specific warning we must
-# install our filter AFTER langchain-core has installed its own, so import
-# it first. The package is a guaranteed transitive dep via langgraph.
-try:
-    import langchain_core  # noqa: F401
-except ImportError:
-    pass
+This package provides a collection of specialized AI agents that collaborate
+to analyze financial markets, process news sentiment, and generate trading
+recommendations.
 
-# langgraph-checkpoint 4.0.3 calls Reviver() at module load without an
-# explicit allowed_objects, which triggers a noisy pending-deprecation
-# warning from langchain-core 1.3.3 on every interpreter start. The fix
-# is already merged upstream (langchain-ai/langgraph#7743, 2026-05-08)
-# and will arrive in the next langgraph-checkpoint release. Remove this
-# block (and the langchain_core preload above) when we bump past it.
-warnings.filterwarnings(
-    "ignore",
-    message=r"The default value of `allowed_objects`.*",
-    category=PendingDeprecationWarning,
-)
+Based on TauricResearch/TradingAgents with additional enterprise features.
+"""
+
+__version__ = "0.1.0"
+__author__ = "TradingAgents Contributors"
+__license__ = "Apache-2.0"
+
+from tradingagents.graph.trading_graph import TradingAgentsGraph
+from tradingagents.default_config import DEFAULT_CONFIG
+
+__all__ = [
+    "TradingAgentsGraph",
+    "DEFAULT_CONFIG",
+    "__version__",
+]
