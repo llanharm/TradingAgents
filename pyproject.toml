@@ -97,7 +97,8 @@ testpaths = ["tests"]
 asyncio_mode = "auto"
 # Removed --cov-report=xml locally since I don't use CI coverage uploads
 # Using -p no:warnings to keep test output clean during local development
-addopts = "--cov=tradingagents --cov-report=term-missing -p no:warnings"
+# Removed --cov flags entirely for faster local test runs; add back if needed
+addopts = "-p no:warnings"
 
 [tool.coverage.run]
 source = ["tradingagents"]
