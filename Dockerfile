@@ -34,7 +34,8 @@ ENV TRADINGAGENTS_DATA_DIR=/home/appuser/.tradingagents
 
 # Set a default log level that's useful for personal/dev use without
 # being too noisy. Override with -e TRADINGAGENTS_LOG_LEVEL=DEBUG if needed.
-ENV TRADINGAGENTS_LOG_LEVEL=WARNING
+# Personally I prefer INFO so I can see what's happening during runs.
+ENV TRADINGAGENTS_LOG_LEVEL=INFO
 
 # Default to showing help if no subcommand is provided, which is friendlier
 # than the default error message when running the container without arguments.
