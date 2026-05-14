@@ -32,6 +32,10 @@ COPY --from=builder --chown=appuser:appuser /build .
 # persistent data directory without hardcoding the path in configs.
 ENV TRADINGAGENTS_DATA_DIR=/home/appuser/.tradingagents
 
+# Set a default log level that's useful for personal/dev use without
+# being too noisy. Override with -e TRADINGAGENTS_LOG_LEVEL=DEBUG if needed.
+ENV TRADINGAGENTS_LOG_LEVEL=WARNING
+
 # Default to showing help if no subcommand is provided, which is friendlier
 # than the default error message when running the container without arguments.
 ENTRYPOINT ["tradingagents"]
