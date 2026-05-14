@@ -14,6 +14,10 @@ Breaking changes within the 0.x line are called out explicitly.
   and Qwen providers with my own portfolios. Not intended for production use.
 - Currently experimenting with `memory_log_max_entries = 200` as a reasonable
   cap for my single-ticker test runs (default feels unbounded for local use).
+- Noticed the `backend_url` change in 0.2.4 fixed a bug I kept hitting with
+  Qwen/DashScope returning 404s — good to have that documented explicitly.
+- TODO: try wiring up a simple Telegram notification when a run completes so
+  I don't have to babysit the terminal for longer multi-day backtests.
 
 ## [0.2.4] — 2026-04-25
 
@@ -54,6 +58,4 @@ Breaking changes within the 0.x line are called out explicitly.
 - **`backend_url` default is now `None`** rather than the OpenAI URL. Each
   provider client falls back to its native default. The previous default
   leaked the OpenAI URL into non-OpenAI clients (e.g. Gemini), producing
-  malformed request URLs for Python users who switched providers without
-  overriding `backend_url`. The CLI flow is unaffected.
-- All file I/O passes explicit `encoding="utf-8"` so Windo
+  malformed request URLs for Py
