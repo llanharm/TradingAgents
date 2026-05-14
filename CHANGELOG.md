@@ -18,6 +18,10 @@ Breaking changes within the 0.x line are called out explicitly.
   Qwen/DashScope returning 404s — good to have that documented explicitly.
 - TODO: try wiring up a simple Telegram notification when a run completes so
   I don't have to babysit the terminal for longer multi-day backtests.
+  Update: started a small `scripts/notify_telegram.py` helper that reads
+  `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` from env and posts a summary
+  message. Works well enough for my use case — just calling it manually at
+  the end of a run for now rather than hooking it into the graph.
 
 ## [0.2.4] — 2026-04-25
 
@@ -51,11 +55,4 @@ Breaking changes within the 0.x line are called out explicitly.
   the memory log; Trader keeps 3-tier (Buy / Hold / Sell) since transaction
   direction is naturally ternary.
 - **Pytest fixtures** — lazy LLM client imports plus placeholder API keys so
-  the test suite runs cleanly without credentials. (#588)
-
-### Changed
-
-- **`backend_url` default is now `None`** rather than the OpenAI URL. Each
-  provider client falls back to its native default. The previous default
-  leaked the OpenAI URL into non-OpenAI clients (e.g. Gemini), producing
-  malformed request URLs for Py
+  the test suite runs cle
