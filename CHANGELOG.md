@@ -22,6 +22,10 @@ Breaking changes within the 0.x line are called out explicitly.
   `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` from env and posts a summary
   message. Works well enough for my use case — just calling it manually at
   the end of a run for now rather than hooking it into the graph.
+  Update 2: hooked it into `TradingAgentsGraph.propagate()` directly — added
+  a try/except at the very end so a missing token or network hiccup won't
+  break the run. Message includes ticker, date, final decision, and elapsed
+  time. Much nicer than polling the terminal.
 
 ## [0.2.4] — 2026-04-25
 
@@ -51,8 +55,3 @@ Breaking changes within the 0.x line are called out explicitly.
   three structured-output agents against any provider so contributors can
   verify their setup with one command.
 - **5-tier rating scale** (Buy / Overweight / Hold / Underweight / Sell) used
-  consistently by Research Manager, Portfolio Manager, signal processor, and
-  the memory log; Trader keeps 3-tier (Buy / Hold / Sell) since transaction
-  direction is naturally ternary.
-- **Pytest fixtures** — lazy LLM client imports plus placeholder API keys so
-  the test suite runs cle
