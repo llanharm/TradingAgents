@@ -53,7 +53,9 @@ def _build_anthropic_chat(cfg: "LLMConfig") -> Any:
     kwargs: dict[str, Any] = {
         "model": cfg.model_name,
         "temperature": cfg.temperature,
-        "max_tokens": cfg.max_tokens,
+        # max_tokens is required by the Anthropic API; default is often too low
+        # for detailed trading analysis responses, so ensure it's always passed.
+        "max_tokens": cfg.max_tokens or 4096,
         "streaming": cfg.streaming,
     }
     if cfg.api_key:
@@ -90,10 +92,4 @@ def _build_google_chat(cfg: "LLMConfig") -> Any:
 
 
 def _build_ollama_chat(cfg: "LLMConfig") -> Any:
-    """Construct a LangChain ChatOllama instance for local models."""
-    try:
-        from langchain_ollama import ChatOllama
-    except ImportError as exc:
-        raise ImportError(
-            "langchain-ollama is required for Ollama models. "
-            "
+    """Construct a LangChain ChatOllama instance 
