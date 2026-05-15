@@ -80,6 +80,10 @@ def _build_google_chat(cfg: "LLMConfig") -> Any:
     }
     if cfg.api_key:
         kwargs["google_api_key"] = cfg.api_key
+    # Note: Google's API does not accept a max_tokens kwarg the same way;
+    # use max_output_tokens instead if cfg.max_tokens is set.
+    if cfg.max_tokens:
+        kwargs["max_output_tokens"] = cfg.max_tokens
 
     logger.debug("Building ChatGoogleGenerativeAI with model=%s", cfg.model_name)
     return ChatGoogleGenerativeAI(**kwargs)
@@ -92,47 +96,4 @@ def _build_ollama_chat(cfg: "LLMConfig") -> Any:
     except ImportError as exc:
         raise ImportError(
             "langchain-ollama is required for Ollama models. "
-            "Install it with: pip install langchain-ollama"
-        ) from exc
-
-    base_url = cfg.base_url or "http://localhost:11434"
-    kwargs: dict[str, Any] = {
-        "model": cfg.model_name,
-        "temperature": cfg.temperature,
-        "base_url": base_url,
-    }
-
-    logger.debug("Building ChatOllama with model=%s base_url=%s", cfg.model_name, base_url)
-    return ChatOllama(**kwargs)
-
-
-_PROVIDER_BUILDERS = {
-    "openai": _build_openai_chat,
-    "anthropic": _build_anthropic_chat,
-    "google": _build_google_chat,
-    "ollama": _build_ollama_chat,
-}
-
-
-def create_llm(cfg: "LLMConfig") -> Any:
-    """Factory function that returns an appropriate LangChain chat model.
-
-    Args:
-        cfg: An :class:`~tradingagents.config.LLMConfig` instance.
-
-    Returns:
-        A LangChain ``BaseChatModel`` compatible object.
-
-    Raises:
-        ValueError: If the provider specified in *cfg* is not supported.
-        ImportError: If the required provider package is not installed.
-    """
-    provider = cfg.provider.lower()
-    builder = _PROVIDER_BUILDERS.get(provider)
-    if builder is None:
-        supported = ", ".join(_PROVIDER_BUILDERS)
-        raise ValueError(
-            f"Unsupported LLM provider '{cfg.provider}'. "
-            f"Supported providers: {supported}"
-        )
-    return builder(cfg)
+            "
